@@ -12,20 +12,19 @@ def test_get_random_countries_info(
 ):
     responses.add(
         responses.GET,
-        random_data_client.URL_BASE + random_data_client.URL_ADDRESSES,
+        random_data_client.URL_ADDRESSES,
         json={"country": "Poland"},
         status=200,
     )
     responses.add(
         responses.GET,
-        random_data_client.URL_BASE + random_data_client.URL_ADDRESSES,
+        random_data_client.URL_ADDRESSES,
         json={"country": "Malaysia"},
         status=200,
     )
     responses.add(
         responses.GET,
-        rest_countries_client.URL_BASE
-        + rest_countries_client.URL_COUNTRY_INFO.format(name="Poland"),
+        rest_countries_client.URL_COUNTRY_INFO.format(name="Poland"),
         json=[
             {
                 "name": {"common": "Poland"},
@@ -38,8 +37,7 @@ def test_get_random_countries_info(
     )
     responses.add(
         responses.GET,
-        rest_countries_client.URL_BASE
-        + rest_countries_client.URL_COUNTRY_INFO.format(name="Malaysia"),
+        rest_countries_client.URL_COUNTRY_INFO.format(name="Malaysia"),
         status=400,
     )
 
