@@ -10,9 +10,13 @@ def get_random_countries_info(
     num_countries: int,
     random_data_client: RandomDataClient,
     rest_countries_client: RestCountriesClient,
-) -> dict[str, CountryInfoSchema | None]:
+) -> list[tuple[str, CountryInfoSchema | None]]:
     country_names = _get_random_country_names(random_data_client, num_countries)
-    return _get_countries_info(rest_countries_client, country_names)
+    countries_info = _get_countries_info(rest_countries_client, country_names)
+
+    return sorted(
+        countries_info, key=lambda x: x[1].population if x[1] else 0, reverse=True
+    )
 
 
 def _get_random_country_names(
@@ -32,7 +36,7 @@ def _get_random_country_names(
 
 def _get_countries_info(
     rest_countries_client: RestCountriesClient, country_names: set[str]
-) -> dict[str, CountryInfoSchema | None]:
+) -> list[tuple[str, CountryInfoSchema | None]]:
     def _request_handler(country_name: str) -> tuple[str, CountryInfoSchema | None]:
         try:
             return country_name, rest_countries_client.fetch_country_info(country_name)
@@ -41,7 +45,4 @@ def _get_countries_info(
 
     with concurrent.futures.ThreadPoolExecutor() as exc:
         futures = [exc.submit(_request_handler, name) for name in country_names]
-
-        futures_results = [future.result() for future in futures]
-
-    return {result[0]: result[1] for result in futures_results}
+        return [future.result() for future in futures]
