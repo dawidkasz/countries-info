@@ -43,9 +43,15 @@ def test_get_random_countries_info(
         status=400,
     )
 
-    assert get_random_countries_info(2, random_data_client, rest_countries_client) == {
-        "Poland": CountryInfoSchema(
-            name="Poland", capital=["Warsaw"], languages=["Polish"], population=37950802
+    assert get_random_countries_info(2, random_data_client, rest_countries_client) == [
+        (
+            "Poland",
+            CountryInfoSchema(
+                name="Poland",
+                capital=["Warsaw"],
+                languages=["Polish"],
+                population=37950802,
+            ),
         ),
-        "Malaysia": None,
-    }
+        ("Malaysia", None),
+    ]
