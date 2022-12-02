@@ -1,9 +1,9 @@
 import concurrent.futures
 
-from countries_info.src.exceptions import RestCountriesClientError
-from countries_info.src.random_data_client import RandomDataClient
-from countries_info.src.rest_countries_client import RestCountriesClient
-from countries_info.src.schemas import CountryInfoSchema
+from .exceptions import RestCountriesClientError
+from .random_data_client import RandomDataClient
+from .rest_countries_client import RestCountriesClient
+from .schemas import CountryInfoSchema
 
 
 def get_random_countries_info(

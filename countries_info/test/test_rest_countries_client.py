@@ -9,8 +9,7 @@ from countries_info.src.rest_countries_client import RestCountriesClient
 def test_fetch_country_info_valid(rest_countries_client: RestCountriesClient):
     responses.add(
         responses.GET,
-        rest_countries_client.URL_BASE
-        + rest_countries_client.URL_COUNTRY_INFO.format(name="Poland"),
+        rest_countries_client.URL_COUNTRY_INFO.format(name="Poland"),
         json=[
             {
                 "name": {"common": "Poland", "official": "Republic of Poland"},
@@ -35,8 +34,7 @@ def test_fetch_country_info_valid(rest_countries_client: RestCountriesClient):
 def test_fetch_country_info_missing_data(rest_countries_client: RestCountriesClient):
     responses.add(
         responses.GET,
-        rest_countries_client.URL_BASE
-        + rest_countries_client.URL_COUNTRY_INFO.format(name="Poland"),
+        rest_countries_client.URL_COUNTRY_INFO.format(name="Poland"),
         json=[
             {
                 "name": {"common": "Poland", "official": "Republic of Poland"},
@@ -59,8 +57,7 @@ def test_fetch_country_info_missing_data(rest_countries_client: RestCountriesCli
 def test_fetch_country_bad_request(rest_countries_client: RestCountriesClient):
     responses.add(
         responses.GET,
-        rest_countries_client.URL_BASE
-        + rest_countries_client.URL_COUNTRY_INFO.format(name="Poland"),
+        rest_countries_client.URL_COUNTRY_INFO.format(name="Poland"),
         status=400,
     )
 
@@ -72,8 +69,7 @@ def test_fetch_country_bad_request(rest_countries_client: RestCountriesClient):
 def test_fetch_country_no_data_found(rest_countries_client: RestCountriesClient):
     responses.add(
         responses.GET,
-        rest_countries_client.URL_BASE
-        + rest_countries_client.URL_COUNTRY_INFO.format(name="Poland"),
+        rest_countries_client.URL_COUNTRY_INFO.format(name="Poland"),
         json=[],
         status=200,
     )
@@ -86,8 +82,7 @@ def test_fetch_country_no_data_found(rest_countries_client: RestCountriesClient)
 def test_fetch_country_unexpected_response(rest_countries_client: RestCountriesClient):
     responses.add(
         responses.GET,
-        rest_countries_client.URL_BASE
-        + rest_countries_client.URL_COUNTRY_INFO.format(name="Poland"),
+        rest_countries_client.URL_COUNTRY_INFO.format(name="Poland"),
         json=[{}, {}],
         status=200,
     )

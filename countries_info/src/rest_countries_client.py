@@ -1,13 +1,14 @@
 import pydantic
 import requests
 
-from countries_info.src.exceptions import RestCountriesClientError
-from countries_info.src.schemas import CountryInfoSchema
+from .api_client_base import ApiClientBase
+from .exceptions import ApiClientError, RestCountriesClientError
+from .schemas import CountryInfoSchema
 
 
-class RestCountriesClient:
+class RestCountriesClient(ApiClientBase):
     URL_BASE = "https://restcountries.com/v3.1"
-    URL_COUNTRY_INFO = "/name/{name}"
+    URL_COUNTRY_INFO = URL_BASE + "/name/{name}"
 
     def fetch_country_info(self, country_name: str) -> CountryInfoSchema:
         response = self._make_request(self.URL_COUNTRY_INFO.format(name=country_name))
@@ -27,11 +28,8 @@ class RestCountriesClient:
         except (KeyError, pydantic.ValidationError):
             raise RestCountriesClientError("Unexpected response format")
 
-    def _make_request(self, endpoint_suffix: str):
+    def _make_request(self, endpoint: str):
         try:
-            response = requests.get(self.URL_BASE + endpoint_suffix)
-            response.raise_for_status()
-        except (requests.HTTPError, requests.RequestException):
-            raise RestCountriesClientError("Can't retrieve data from the api")
-
-        return response
+            return super()._make_request(endpoint)
+        except ApiClientError as exc:
+            raise RestCountriesClientError from exc

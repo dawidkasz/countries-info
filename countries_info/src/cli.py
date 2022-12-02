@@ -1,9 +1,9 @@
 import sys
 from argparse import Namespace
 
-from countries_info.src.countries_info_service import get_random_countries_info
-from countries_info.src.random_data_client import RandomDataClient
-from countries_info.src.rest_countries_client import RestCountriesClient
+from .countries_info_service import get_random_countries_info
+from .random_data_client import RandomDataClient
+from .rest_countries_client import RestCountriesClient
 
 NUM_COUNTRIES_MIN = 5
 NUM_COUNTRIES_MAX = 20
