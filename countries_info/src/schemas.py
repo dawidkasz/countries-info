@@ -10,3 +10,4 @@ class CountryInfoSchema(BaseModel):
     capital: list[str]
     languages: list[str]
     population: int
+    biggest_city: str | None
