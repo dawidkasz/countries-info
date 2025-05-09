@@ -24,7 +24,7 @@ class RestCountriesClient(ApiClientBase):
                 capital=country_info_json.get("capital", []),
                 languages=list(country_info_json.get("languages", {}).values()),
                 population=country_info_json.get("population", 0),
-                biggest_city=country_info_json.get("biggest_city"),
+                biggest_city=country_info_json.get("biggest_city", ""),
             )
         except (KeyError, pydantic.ValidationError):
             raise RestCountriesClientError("Unexpected response format")
